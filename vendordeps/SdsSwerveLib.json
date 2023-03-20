@@ -1,0 +1,19 @@
+{
+    "fileName": "SdsSwerveLib.json",
+    "name": "swerve-lib",
+    "version": "1.1.3",
+    "uuid": "cad3d2fd-e80d-4bfa-8b31-ede8a7f49df3",
+    "mavenUrls": [
+        "https://jitpack.io"
+    ],
+    "jsonUrl": "https://raw.githubusercontent.com/SyossetFRC/swerve-lib/master/SdsSwerveLib.json",
+    "javaDependencies": [
+        {
+            "groupId": "com.github.SyossetFRC",
+            "artifactId": "swerve-lib",
+            "version": "1.1.3"
+        }
+    ],
+    "jniDependencies": [],
+    "cppDependencies": []
+}
