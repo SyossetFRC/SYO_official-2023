@@ -29,6 +29,8 @@ import com.revrobotics.RelativeEncoder;
 import com.syossetfrc.swervelib.Mk4iSwerveModuleHelper;
 import com.syossetfrc.swervelib.SdsModuleConfigurations;
 import com.syossetfrc.swervelib.SwerveModule;
+import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -36,6 +38,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -100,6 +103,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule m_frontRightModule;
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
+
+  // private final CANSparkMax m_frontLeftDriveMotor; 
+  // private final CANSparkMax m_frontRightDriveMotor;
+  // private final CANSparkMax m_backLeftDriveMotor;
+  // private final CANSparkMax m_backRightDriveMotor;
+  // private final CANSparkMax m_frontLeftSteerMotor; 
+  // private final CANSparkMax m_frontRightSteerMotor;
+  // private final CANSparkMax m_backLeftSteerMotor;
+  // private final CANSparkMax m_backRightSteerMotor;
   
   private final RelativeEncoder m_frontLeftDriveEncoder;
   private final RelativeEncoder m_frontRightDriveEncoder;
@@ -186,6 +198,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_frontRightDriveEncoder = m_frontRightModule.getDriveEncoder();
     m_backLeftDriveEncoder = m_backLeftModule.getDriveEncoder();
     m_backRightDriveEncoder = m_backRightModule.getDriveEncoder();
+
   }
 
   /**
@@ -199,6 +212,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // FIXME Uncomment if you are using a NavX
     m_navx.zeroYaw();
   }
+
+  
 
   /**
    * Updates all recorded drive encoder positions.
@@ -224,10 +239,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
   }
 
-  public double getRoll() {
-    return m_navx.getRoll();
-  }
-
   public double getPitch() {
     return m_navx.getPitch();
   }
@@ -245,6 +256,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backLeftModule.setIdleMode(mode);
     m_backRightModule.setIdleMode(mode);
   }
+
+  
+  
 
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;

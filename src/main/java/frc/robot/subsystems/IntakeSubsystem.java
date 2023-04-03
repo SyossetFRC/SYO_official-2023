@@ -27,6 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private MotorControllerGroup m_intake;
     private Solenoid m_release1;
     private Solenoid m_release2;
+    private double m_openStartTime;
 
     public IntakeSubsystem() {
         m_claw = new DoubleSolenoid(PneumaticsModuleType.REVPH, CLAW_SOLENOID_FORWARD, CLAW_SOLENOID_REVERSE);
@@ -36,30 +37,43 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intake1 = new CANSparkMax(INTAKE_MOTOR_1, MotorType.kBrushed);
         m_intake2 = new CANSparkMax(INTAKE_MOTOR_2, MotorType.kBrushed);
         m_intake = new MotorControllerGroup(m_intake1, m_intake2);
+        m_openStartTime = -1;
     }
 
     public void close() {
         m_intake.set(0.6);
-        m_claw.set(Value.kForward);
+        m_openStartTime = -1;
         m_release1.set(false);
         m_release2.set(false);
     }
 
+
     public void open() {
-        m_intake.set(0);
+        m_intake.set(0.0);
         m_release1.set(true);
         m_release2.set(true);
-        Timer.delay(0.75);
-        m_claw.set(Value.kReverse);
-        Timer.delay(0.2);
-        m_release1.set(false);
+        m_openStartTime = Timer.getFPGATimestamp();
+        //m_release1.set(false);
+        //m_release2.set(false);
 
-        m_release2.set(false);
     }
 
     public void releaseSuction() {
         m_intake.set(0);
         m_release1.set(true);
         m_release2.set(true);
+    }
+
+    public void saveCurrentTime() {
+        m_openStartTime = Timer.getFPGATimestamp();
+    }
+
+    @Override
+    public void periodic() {
+        if(m_openStartTime >= 0 && Timer.getFPGATimestamp() - m_openStartTime > 0.55) {
+            m_claw.set(Value.kReverse);
+        } else {
+            m_claw.set(Value.kForward);
+        }
     }
 }

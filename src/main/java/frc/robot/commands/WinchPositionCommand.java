@@ -16,9 +16,14 @@ public class WinchPositionCommand extends CommandBase {
             m_targetAngle = 65;
         } else if (position.equals("OUT")) {
             m_targetAngle = 53;
+        } else if (position.equals("A-OUT")) {
+            m_targetAngle = 53;
         } else if (position.equals("IN")) {
-            m_targetAngle = 22;
-        }
+            m_targetAngle = 15;
+        } else if (position.equals("HUMAN")) {
+            m_targetAngle = 45;
+        } 
+
         m_power = power;
 
         addRequirements(winchSubsystem);

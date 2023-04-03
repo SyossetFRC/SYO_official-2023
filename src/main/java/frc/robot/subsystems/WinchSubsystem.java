@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.WINCH_MOTOR;
+import static frc.robot.Constants.WINCH_MOTOR_1;
+import static frc.robot.Constants.WINCH_MOTOR_2;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -12,7 +13,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class WinchSubsystem extends SubsystemBase {
-    private CANSparkMax m_winch;
+    private CANSparkMax m_winch1;
+    private CANSparkMax m_winch2;
+
     private double m_winchSpeed = 0;
 
     private DutyCycleEncoder m_winchEncoder;
@@ -21,8 +24,12 @@ public class WinchSubsystem extends SubsystemBase {
     DigitalInput m_bottomSwitch;
 
     public WinchSubsystem() {
-        m_winch = new CANSparkMax(WINCH_MOTOR, MotorType.kBrushless);
-        m_winch.setIdleMode(IdleMode.kBrake);
+        m_winch1 = new CANSparkMax(WINCH_MOTOR_1, MotorType.kBrushless);
+        m_winch1.setIdleMode(IdleMode.kBrake);
+
+        m_winch2 = new CANSparkMax(WINCH_MOTOR_2, MotorType.kBrushless);
+        m_winch2.setIdleMode(IdleMode.kBrake);
+        m_winch2.follow(m_winch1, true);
 
         m_winchEncoder = new DutyCycleEncoder(Constants.WINCH_ENCODER);
         m_winchEncoder.setDistancePerRotation(-360); // Convert from encoder rotations to degrees
@@ -47,13 +54,13 @@ public class WinchSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         if (!m_topSwitch.get() && m_winchSpeed > 0) {
-            m_winch.set(0);
+            m_winch1.set(0);
         }
         else if (!m_bottomSwitch.get() && m_winchSpeed < 0) {
-            m_winch.set(m_winchSpeed / 3.0);
+            m_winch1.set(m_winchSpeed / 3.0);
         }
         else {
-            m_winch.set(m_winchSpeed);
+            m_winch1.set(m_winchSpeed);
         }
     }
 
