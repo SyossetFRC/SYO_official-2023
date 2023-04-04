@@ -48,7 +48,8 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 52; 
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(5.9); 
 
-    public static final int ELEVATOR_PULLEY_MOTOR = 22;
+    public static final int ELEVATOR_PULLEY_MOTOR_1 = 22;
+    public static final int ELEVATOR_PULLEY_MOTOR_2 = 23;
     public static final int ELEVATOR_SWITCH_TOP = 1;
     public static final int ELEVATOR_SWITCH_BOTTOM = 2;
 
@@ -64,4 +65,6 @@ public final class Constants {
     public static final int CLAW_SOLENOID_REVERSE = 1;
     public static final int RELEASE_SOLENOID_1 = 2;
     public static final int RELEASE_SOLENOID_2 = 3;
+
+    public static final int BLINKIN = 0;
 }

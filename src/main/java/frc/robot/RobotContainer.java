@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -52,8 +53,10 @@ public class RobotContainer {
   private static double m_drivePowerCap = 0.75;
   private static double m_rotatePower = 0;
 
-  //private final UsbCamera m_driveCamera;
+  private final UsbCamera m_driveCamera;
   private final UsbCamera m_subsystemCamera;
+
+  private final Spark m_blinkin;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -79,11 +82,13 @@ public class RobotContainer {
         () -> -deadband(m_operatorController.getRawAxis(1), 0.05)
     ));
 
-    //m_driveCamera = CameraServer.startAutomaticCapture(0);
+    m_driveCamera = CameraServer.startAutomaticCapture(0);
     m_subsystemCamera = CameraServer.startAutomaticCapture(1);
 
-    //m_driveCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    m_driveCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     m_subsystemCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+    m_blinkin = new Spark(Constants.BLINKIN);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -349,16 +354,6 @@ public class RobotContainer {
     m_brake.whileHeld(() -> setIdleMode(0));
     m_brake.whenReleased(() -> setIdleMode(1));
 
-    // Driver bottom-mid-left base button rotates left 90 degrees
-    Button m_left90 = new Button(() -> m_driveController.getRawButton(7));
-    m_left90.whenPressed(new RotationDriveCommand(m_drivetrainSubsystem, 90, 2 * Math.PI / 3));
-
-    // Driver bottom-mid-left base button rotates right 90 degrees
-    Button m_right90 = new Button(() -> m_driveController.getRawButton(8));
-    m_right90.whenPressed(new RotationDriveCommand(m_drivetrainSubsystem, -90, 2 * Math.PI / 3));
-
-    
-
     // Operator 'A' button sets elevator to low position
     Button m_lowPosition = new Button(() -> m_operatorController.getRawButton(1));
     m_lowPosition.whenPressed(new ParallelCommandGroup(new ElevatorPositionCommand(m_elevatorSubsystem, "LOW", 0.8), new WinchPositionCommand(m_winchSubsystem, "IN", 1)));
@@ -379,8 +374,6 @@ public class RobotContainer {
     Button m_humanPosition = new Button(() -> m_operatorController.getRawButton(6));
     m_humanPosition.whenPressed(new ParallelCommandGroup(new ElevatorPositionCommand(m_elevatorSubsystem, "HUMAN", 0.8), new WinchPositionCommand(m_winchSubsystem, "HUMAN", 0.8)));
 
-    
-
     // Operator left trigger opens claw
     Button m_openClaw = new Button(() -> m_operatorController.getRawAxis(2) > 0.5);
     m_openClaw.whenPressed(new OpenIntakeCommand(m_intakeSubsystem));
@@ -398,6 +391,12 @@ public class RobotContainer {
     Button m_rotateRight = new Button(() -> m_driveController.getRawButton(12));
     m_rotateRight.whileHeld(() -> setRotatePower("right"));
     m_rotateRight.whenReleased(() -> setRotatePower("none"));
+
+    Button m_yellow = new Button(() -> m_driveController.getRawButton(7));
+    m_yellow.whenPressed(() -> m_blinkin.set(0.69));
+
+    Button m_purple = new Button(() -> m_driveController.getRawButton(8));
+    m_purple.whenPressed(() -> m_blinkin.set(0.91));
   }
 
   private static double deadband(double value, double deadband) {
