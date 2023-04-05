@@ -53,7 +53,6 @@ public class RobotContainer {
   private static double m_drivePowerCap = 0.75;
   private static double m_rotatePower = 0;
 
-  private final UsbCamera m_driveCamera;
   private final UsbCamera m_subsystemCamera;
 
   private final Spark m_blinkin;
@@ -82,10 +81,7 @@ public class RobotContainer {
         () -> -deadband(m_operatorController.getRawAxis(1), 0.05)
     ));
 
-    m_driveCamera = CameraServer.startAutomaticCapture(0);
-    m_subsystemCamera = CameraServer.startAutomaticCapture(1);
-
-    m_driveCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    m_subsystemCamera = CameraServer.startAutomaticCapture(0);
     m_subsystemCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
     m_blinkin = new Spark(Constants.BLINKIN);
@@ -396,7 +392,7 @@ public class RobotContainer {
     m_yellow.whenPressed(() -> m_blinkin.set(0.69));
 
     Button m_purple = new Button(() -> m_driveController.getRawButton(8));
-    m_purple.whenPressed(() -> m_blinkin.set(0.91));
+    m_purple.whenPressed(() -> m_blinkin.set(0.37));
   }
 
   private static double deadband(double value, double deadband) {

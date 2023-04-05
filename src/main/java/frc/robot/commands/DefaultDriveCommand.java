@@ -37,6 +37,7 @@ public class DefaultDriveCommand extends CommandBase {
                         m_drivetrainSubsystem.getGyroscopeRotation()
                 )
         );
+        SmartDashboard.putNumber("Roll", m_drivetrainSubsystem.getRoll());
     }
 
     @Override
