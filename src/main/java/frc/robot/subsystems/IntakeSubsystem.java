@@ -50,6 +50,7 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intake.set(0.0);
         m_release1.set(true);
         m_release2.set(true);
+        Timer.delay(0.2);
         m_claw.set(Value.kReverse);
         Timer.delay(0.5);
         m_release1.set(false);

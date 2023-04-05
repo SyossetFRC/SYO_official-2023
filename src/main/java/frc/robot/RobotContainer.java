@@ -392,7 +392,7 @@ public class RobotContainer {
     m_yellow.whenPressed(() -> m_blinkin.set(0.69));
 
     Button m_purple = new Button(() -> m_driveController.getRawButton(8));
-    m_purple.whenPressed(() -> m_blinkin.set(0.37));
+    m_purple.whenPressed(() -> m_blinkin.set(0.51));
   }
 
   private static double deadband(double value, double deadband) {
