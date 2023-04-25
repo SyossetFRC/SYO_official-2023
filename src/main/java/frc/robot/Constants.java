@@ -41,7 +41,7 @@ public final class Constants {
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 17; 
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 6; 
     public static final int BACK_LEFT_MODULE_STEER_ENCODER = 51; 
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(303.3); 
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(195.73); 
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 18; 
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 15; 
@@ -65,6 +65,4 @@ public final class Constants {
     public static final int CLAW_SOLENOID_REVERSE = 1;
     public static final int RELEASE_SOLENOID_1 = 2;
     public static final int RELEASE_SOLENOID_2 = 3;
-
-    public static final int BLINKIN = 0;
 }

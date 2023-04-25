@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class ElevatorSubsystem extends SubsystemBase {
     private CANSparkMax m_elevatorPulley1;
     private CANSparkMax m_elevatorPulley2;
@@ -55,13 +57,24 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void periodic() {
         if (!m_topSwitch.get() && m_elevatorPulleySpeed > 0) {
             m_elevatorPulley1.set(0);
-            
+            /*
+            if (this.getCurrentCommand() != null) {
+                this.getCurrentCommand().cancel();
+            }
+            */
         }
         else if (!m_bottomSwitch.get() && m_elevatorPulleySpeed < 0) {
             m_elevatorPulley1.set(0);
+            /*
+            if (this.getCurrentCommand() != null) {
+                this.getCurrentCommand().cancel();
+            }
+            */
         }
         else {
             m_elevatorPulley1.set(m_elevatorPulleySpeed);
         }
+
+        SmartDashboard.putNumber("Elevator Position", getElevatorAbsPosition());
     }
 }

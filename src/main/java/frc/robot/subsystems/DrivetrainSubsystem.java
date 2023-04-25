@@ -239,10 +239,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
   }
 
-  public double getRoll() {
-    return m_navx.getRoll();
-  }
-
   public double getDistanceTravelled() {
     return (Math.abs(m_frontLeftDriveEncoder.getPosition() - m_frontLeftDistance)
             + Math.abs(m_frontRightDriveEncoder.getPosition() - m_frontRightDistance)

@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     m_container.autonomousCommands(positionChooser.getSelected(), chargeChooser.getSelected()).schedule();
 
     //AUTON TEST ONLY DO NOT UNCOMMENT
-    //m_container.testAutonSpeed(Math.PI / 6).schedule();;
+    //m_container.testAuton().schedule();;
   }
 
   /** This function is called periodically during autonomous. */

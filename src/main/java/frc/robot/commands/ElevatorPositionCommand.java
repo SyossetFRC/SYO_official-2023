@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -13,13 +14,13 @@ public class ElevatorPositionCommand extends CommandBase {
     public ElevatorPositionCommand(ElevatorSubsystem elevatorSubsystem, String position, double power) {
         m_elevatorSubsystem = elevatorSubsystem;
         if (position.equals("HIGH")) {
-            m_targetPosition = 1.13;
+            m_targetPosition = 1.0;
         } 
         else if (position.equals("MID")) {
             m_targetPosition = 0.5;
         } 
         else if (position.equals("LOW")) {
-            m_targetPosition = 0.15;
+            m_targetPosition = 0.1;
         }
         else if (position.equals("HUMAN")) {
             m_targetPosition = 0.9;
@@ -41,6 +42,11 @@ public class ElevatorPositionCommand extends CommandBase {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void execute() {
+        SmartDashboard.putBoolean("Elevator Command", isFinished());
     }
 
     @Override

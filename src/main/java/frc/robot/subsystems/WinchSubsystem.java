@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class WinchSubsystem extends SubsystemBase {
     private CANSparkMax m_winch1;
     private CANSparkMax m_winch2;
@@ -55,13 +57,25 @@ public class WinchSubsystem extends SubsystemBase {
     public void periodic() {
         if (!m_topSwitch.get() && m_winchSpeed > 0) {
             m_winch1.set(0);
+            /*
+            if (this.getCurrentCommand() != null) {
+                this.getCurrentCommand().cancel();
+            }
+            */
         }
         else if (!m_bottomSwitch.get() && m_winchSpeed < 0) {
-            m_winch1.set(m_winchSpeed / 3.0);
+            m_winch1.set(m_winchSpeed / 4.0);
+            /*
+            if (this.getCurrentCommand() != null) {
+                this.getCurrentCommand().cancel();
+            }
+            */
         }
         else {
             m_winch1.set(m_winchSpeed);
         }
+
+        SmartDashboard.putNumber("Winch Angle", getWinchAbsPosition());
     }
 
     /*

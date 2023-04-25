@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.WinchSubsystem;
 
@@ -19,7 +20,7 @@ public class WinchPositionCommand extends CommandBase {
         } else if (position.equals("A-OUT")) {
             m_targetAngle = 53;
         } else if (position.equals("IN")) {
-            m_targetAngle = 15;
+            m_targetAngle = 20;
         } else if (position.equals("HUMAN")) {
             m_targetAngle = 45;
         } 
@@ -41,6 +42,11 @@ public class WinchPositionCommand extends CommandBase {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void execute() {
+        SmartDashboard.putBoolean("Winch Command", isFinished());
     }
 
     @Override
